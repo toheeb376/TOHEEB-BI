@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Toheeb BI Consulting — Transforming Data into Strategic Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --navy-mid: #1b3a6b;
+    --gold: #f4a300;
+    --gold-light: #ffc94d;
+    --cream: #f5f0e8;
+    --charcoal: #2a2a3a;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,31,60,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(244,163,0,0.15);
+    transition: padding 0.3s;
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--white); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--navy); font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.6rem 1.5rem; border-radius: 2px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 10rem 4rem 6rem; overflow: hidden; }
+  .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(244,163,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(244,163,0,0.04) 1px, transparent 1px); background-size: 80px 80px; }
+  .hero-glow { position: absolute; top: -10%; right: -5%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(244,163,0,0.12) 0%, transparent 70%); pointer-events: none; }
+  .hero-glow-2 { position: absolute; bottom: -20%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(27,58,107,0.5) 0%, transparent 70%); pointer-events: none; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards; }
+  .hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+  .hero-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 9vw, 9rem); line-height: 0.92; letter-spacing: 2px; max-width: 900px; opacity: 0; animation: fadeUp 0.8s 0.4s ease forwards; }
+  .hero-headline em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); display: block; }
+  .hero-sub { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.65); max-width: 520px; margin-top: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; }
+  .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards; }
+  .btn-primary { background: var(--gold); color: var(--navy); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; padding: 1rem 2.2rem; text-decoration: none; border-radius: 2px; transition: all 0.25s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(244,163,0,0.3); }
+  .btn-outline { border: 1px solid rgba(255,255,255,0.25); color: var(--white); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; padding: 1rem 2.2rem; text-decoration: none; border-radius: 2px; transition: all 0.25s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.08); opacity: 0; animation: fadeUp 0.8s 1s ease forwards; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--gold); line-height: 1; }
+  .stat-label { font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 0.3rem; }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--gold); padding: 0.85rem 0; overflow: hidden; }
+  .marquee-track { display: flex; gap: 3rem; animation: marquee 22s linear infinite; white-space: nowrap; }
+  .marquee-track span { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--navy); flex-shrink: 0; }
+  .marquee-dot { color: var(--navy-mid); opacity: 0.5; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .section-tag::before { content: ''; width: 18px; height: 1px; background: var(--gold); }
+
+  /* ABOUT */
+  .about { background: var(--cream); color: var(--text); padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about .section-tag { color: var(--navy-mid); }
+  .about .section-tag::before { background: var(--navy-mid); }
+  .about-headline { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1.15; color: var(--navy); }
+  .about-headline em { font-style: italic; color: var(--navy-mid); }
+  .about-body { font-size: 1rem; line-height: 1.8; color: #4a4a5a; margin-top: 1.5rem; }
+  .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
+  .value-card { background: var(--white); border-left: 3px solid var(--gold); padding: 1.5rem 1.8rem; border-radius: 0 4px 4px 0; transition: transform 0.2s, box-shadow 0.2s; }
+  .value-card:hover { transform: translateX(6px); box-shadow: -4px 0 24px rgba(244,163,0,0.15); }
+  .value-card h4 { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--navy-mid); font-weight: 600; }
+  .value-card p { font-size: 0.9rem; color: #666; margin-top: 0.4rem; line-height: 1.6; }
+
+  /* PORTFOLIO */
+  .portfolio { background: var(--navy); padding: 8rem 4rem; }
+  .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .portfolio-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.95; letter-spacing: 2px; }
+  .portfolio-headline em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); }
+  .portfolio-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+  /* PORT CARD — clickable anchor */
+  a.port-card {
+    position: relative; background: #0f2347; padding: 2.5rem;
+    overflow: hidden; transition: background 0.3s;
+    min-height: 270px; display: flex; flex-direction: column;
+    justify-content: flex-end; text-decoration: none; color: inherit;
+  }
+  a.port-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(244,163,0,0.09) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+  a.port-card:hover::before { opacity: 1; }
+  a.port-card:hover { background: #132b56; }
+  .port-card-num { position: absolute; top: 1.8rem; right: 2rem; font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; color: rgba(255,255,255,0.03); transition: color 0.3s; }
+  a.port-card:hover .port-card-num { color: rgba(244,163,0,0.08); }
+
+  /* live badge */
+  .port-live-badge {
+    position: absolute; top: 1.6rem; left: 2.5rem;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); padding: 0.25rem 0.65rem; border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .port-live-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #555; transition: background 0.3s, box-shadow 0.3s; flex-shrink: 0; }
+  a.port-card:hover .port-live-badge { color: var(--gold); background: rgba(244,163,0,0.08); border-color: rgba(244,163,0,0.4); }
+  a.port-card:hover .port-live-badge::before { background: #44dd77; box-shadow: 0 0 6px #44dd77; }
+
+  .port-card-industry { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .port-card-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; line-height: 1.25; color: var(--white); margin-bottom: 0.8rem; }
+  .port-card-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+  .tech-pill { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 0.2rem 0.6rem; border-radius: 20px; transition: all 0.2s; }
+  a.port-card:hover .tech-pill { background: rgba(244,163,0,0.1); border-color: rgba(244,163,0,0.3); color: var(--gold); }
+
+  .port-card-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); transition: color 0.2s;
+  }
+  a.port-card:hover .port-card-link { color: var(--gold); }
+  .port-card-link svg { width: 11px; height: 11px; transition: transform 0.2s; }
+  a.port-card:hover .port-card-link svg { transform: translate(2px,-2px); }
+
+  .port-card-wide { grid-column: span 2; }
+
+  /* SERVICES */
+  .services { background: #091629; padding: 8rem 4rem; }
+  .services-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.95; letter-spacing: 2px; margin-bottom: 4rem; max-width: 700px; }
+  .services-headline em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); }
+  .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,0.04); }
+  .service-item { background: #091629; padding: 2.8rem; transition: background 0.3s; position: relative; }
+  .service-item:hover { background: #0f2347; }
+  .service-num { font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 3px; color: var(--gold); opacity: 0.7; margin-bottom: 1rem; }
+  .service-title { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 0.8rem; }
+  .service-desc { font-size: 0.88rem; line-height: 1.75; color: rgba(255,255,255,0.5); }
+  .service-line { position: absolute; bottom: 0; left: 2.8rem; width: 0; height: 2px; background: var(--gold); transition: width 0.4s ease; }
+  .service-item:hover .service-line { width: calc(100% - 5.6rem); }
+
+  /* TECH */
+  .tech-section { background: var(--cream); color: var(--text); padding: 8rem 4rem; }
+  .tech-section .section-tag { color: var(--navy-mid); }
+  .tech-section .section-tag::before { background: var(--navy-mid); }
+  .tech-headline { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.2; color: var(--navy); margin-bottom: 3.5rem; max-width: 600px; }
+  .tech-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .tech-col h4 { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--navy-mid); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(27,58,107,0.15); }
+  .tech-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.9rem; color: #444; transition: color 0.2s; }
+  .tech-item:hover { color: var(--navy-mid); }
+  .tech-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* WHY */
+  .why-section { background: var(--navy-mid); padding: 8rem 4rem; }
+  .why-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; }
+  .why-left h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 0.9; letter-spacing: 2px; }
+  .why-left h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); display: block; }
+  .why-left p { font-size: 0.95rem; line-height: 1.75; color: rgba(255,255,255,0.6); margin-top: 1.5rem; }
+  .why-list { display: flex; flex-direction: column; }
+  .why-item { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.6rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); transition: background 0.2s, padding-left 0.2s; border-radius: 4px; }
+  .why-item:hover { background: rgba(255,255,255,0.03); padding-left: 1rem; }
+  .why-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--gold); opacity: 0.6; flex-shrink: 0; padding-top: 0.1rem; }
+  .why-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
+  .why-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+  /* INDUSTRIES */
+  .industries { background: var(--navy); padding: 8rem 4rem; }
+  .industries-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.95; letter-spacing: 2px; margin-bottom: 3rem; }
+  .industries-headline em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--gold); }
+  .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .industry-pill { border: 1px solid rgba(244,163,0,0.2); border-radius: 4px; padding: 2rem; text-align: center; transition: all 0.3s; }
+  .industry-pill:hover { background: rgba(244,163,0,0.08); border-color: var(--gold); transform: translateY(-4px); }
+  .industry-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .industry-name { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  /* CTA */
+  .cta-section { background: var(--gold); padding: 8rem 4rem; position: relative; overflow: hidden; }
+  .cta-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Bebas Neue', sans-serif; font-size: 18vw; line-height: 1; color: rgba(13,31,60,0.06); white-space: nowrap; pointer-events: none; letter-spacing: 4px; }
+  .cta-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cta-quote { font-family: 'DM Serif Display', serif; font-style: italic; font-size: clamp(1.5rem, 3vw, 2.8rem); color: var(--navy); line-height: 1.35; max-width: 700px; margin-bottom: 2.5rem; }
+  .cta-quote::before, .cta-quote::after { content: '"'; opacity: 0.3; }
+  .cta-sub { font-size: 0.9rem; color: rgba(13,31,60,0.65); margin-bottom: 2.5rem; }
+  .btn-dark { background: var(--navy); color: var(--white); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; padding: 1.1rem 2.8rem; border-radius: 2px; text-decoration: none; transition: all 0.25s; }
+  .btn-dark:hover { background: var(--charcoal); transform: translateY(-2px); box-shadow: 0 16px 40px rgba(13,31,60,0.25); }
+
+  /* FOOTER */
+  footer { background: #050f1e; padding: 4rem; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; color: var(--white); margin-bottom: 1rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; max-width: 280px; }
+  .footer-col h5 { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 0.65rem; }
+  .footer-col a { font-size: 0.85rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom { background: #050f1e; padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.04); font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem !important; }
+    .nav-links { display: none; }
+    .hero { padding: 8rem 1.5rem 4rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .about { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 3rem; }
+    .portfolio { padding: 5rem 1.5rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .port-card-wide { grid-column: span 1; }
+    .portfolio-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .services { padding: 5rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .tech-section { padding: 5rem 1.5rem; }
+    .tech-cols { grid-template-columns: 1fr; }
+    .why-section { padding: 5rem 1.5rem; }
+    .why-layout { grid-template-columns: 1fr; }
+    .industries { padding: 5rem 1.5rem; }
+    .industries-grid { grid-template-columns: 1fr 1fr; }
+    .cta-section { padding: 5rem 1.5rem; }
+    footer { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    .footer-bottom { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">TOHEEB<span>BI</span></a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#tech">Tech Stack</a></li>
+    <li><a href="#industries">Industries</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get In Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-tag">Lagos, Nigeria · Est. 2026</div>
+  <h1 class="hero-headline">Turning<br>Raw Data<br><em>Into Power</em></h1>
+  <p class="hero-sub">Toheeb Business Intelligence Software Consulting Firm — building production-grade BI dashboards, analytics platforms, and data intelligence systems for Africa's leading brands.</p>
+  <div class="hero-actions">
+    <a href="#portfolio" class="btn-primary">View Portfolio</a>
+    <a href="#services" class="btn-outline">Our Services</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">11+</div><div class="stat-label">BI Dashboards Built</div></div>
+    <div><div class="stat-num">6+</div><div class="stat-label">Industries Served</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-label">Production-Ready</div></div>
+    <div><div class="stat-num">5+</div><div class="stat-label">Tech Stack Tools</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Business Intelligence</span><span class="marquee-dot">&#10022;</span>
+    <span>Streamlit Dashboards</span><span class="marquee-dot">&#10022;</span>
+    <span>Plotly Visualizations</span><span class="marquee-dot">&#10022;</span>
+    <span>Python Analytics</span><span class="marquee-dot">&#10022;</span>
+    <span>Power BI</span><span class="marquee-dot">&#10022;</span>
+    <span>Data Consulting</span><span class="marquee-dot">&#10022;</span>
+    <span>Brand-Specific Theming</span><span class="marquee-dot">&#10022;</span>
+    <span>AI Integration</span><span class="marquee-dot">&#10022;</span>
+    <span>Dashboard Deployment</span><span class="marquee-dot">&#10022;</span>
+    <span>Executive Insights</span><span class="marquee-dot">&#10022;</span>
+    <span>Business Intelligence</span><span class="marquee-dot">&#10022;</span>
+    <span>Streamlit Dashboards</span><span class="marquee-dot">&#10022;</span>
+    <span>Plotly Visualizations</span><span class="marquee-dot">&#10022;</span>
+    <span>Python Analytics</span><span class="marquee-dot">&#10022;</span>
+    <span>Power BI</span><span class="marquee-dot">&#10022;</span>
+    <span>Data Consulting</span><span class="marquee-dot">&#10022;</span>
+    <span>Brand-Specific Theming</span><span class="marquee-dot">&#10022;</span>
+    <span>AI Integration</span><span class="marquee-dot">&#10022;</span>
+    <span>Dashboard Deployment</span><span class="marquee-dot">&#10022;</span>
+    <span>Executive Insights</span><span class="marquee-dot">&#10022;</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-tag reveal">About The Firm</div>
+    <h2 class="about-headline reveal reveal-delay-1">Where Data Meets<br><em>Strategic Clarity</em></h2>
+    <p class="about-body reveal reveal-delay-2">We are a premier data and analytics consultancy headquartered in Ibadan, Nigeria. Founded on the belief that every business decision should be powered by data, we specialize in designing, building, and deploying end-to-end BI solutions that drive measurable outcomes.</p>
+    <p class="about-body reveal reveal-delay-3">We bridge the gap between raw data and executive insight — delivering interactive dashboards, automated reporting systems, and advanced analytics platforms that help organizations across Africa and beyond compete confidently in a data-driven world.</p>
+  </div>
+  <div class="about-right">
+    <div class="value-card reveal reveal-delay-1"><h4>Precision &amp; Excellence</h4><p>Every solution is production-ready, validated, and error-free before delivery.</p></div>
+    <div class="value-card reveal reveal-delay-2"><h4>Insight-Driven</h4><p>We transform data complexity into clear, executive-level narratives.</p></div>
+    <div class="value-card reveal reveal-delay-3"><h4>Client-Centricity</h4><p>We align every solution to the unique goals, brand, and context of each client.</p></div>
+    <div class="value-card reveal reveal-delay-4"><h4>Innovation</h4><p>We leverage cutting-edge tools and methodologies to stay ahead of the analytical curve.</p></div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-header reveal">
+    <div>
+      <div class="section-tag">Live Portfolio</div>
+      <h2 class="portfolio-headline">Real Dashboards.<br><em>Real Brands.</em></h2>
+    </div>
+    <div class="portfolio-count">11 Live Apps &mdash; Click Any Card to Open</div>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <a class="port-card reveal" href="https://anthropicclaudeai.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">01</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">AI Platform</div>
+      <div class="port-card-title">Anthropic Claude AI Analytics</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Streamlit</span><span class="tech-pill">Plotly</span><span class="tech-pill">AI Metrics</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-1" href="https://bokkumart.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">02</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">E-Commerce / Grocery</div>
+      <div class="port-card-title">Bokku Mart Grocery Sales Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Pandas</span><span class="tech-pill">Streamlit</span><span class="tech-pill">KPI Cards</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-2" href="https://metaglobalsocialmediaanalytics.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">03</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Social Media / Tech</div>
+      <div class="port-card-title">Meta Global Social Media Analytics</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Plotly</span><span class="tech-pill">Dark Theme</span><span class="tech-pill">Tabbed Layout</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal" href="https://microsoft-app.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">04</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Enterprise / Technology</div>
+      <div class="port-card-title">Microsoft Enterprise Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Streamlit</span><span class="tech-pill">3D Scatter</span><span class="tech-pill">Plotly</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-1" href="https://moniepoint-app.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">05</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Fintech / Payments</div>
+      <div class="port-card-title">Moniepoint Operations Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Plotly</span><span class="tech-pill">Sidebar Filters</span><span class="tech-pill">CSS Injection</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-2" href="https://mtnnigeria.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">06</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Telecommunications</div>
+      <div class="port-card-title">MTN Nigeria Telecom Operations</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Churn Risk</span><span class="tech-pill">SVG Logo</span><span class="tech-pill">Yellow/Black</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal" href="https://oando-app.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">07</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Oil &amp; Gas / Energy</div>
+      <div class="port-card-title">Oando Energy Analytics Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Streamlit</span><span class="tech-pill">Plotly</span><span class="tech-pill">Executive Panel</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-1" href="https://openaiaiplatform.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">08</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">AI / SaaS Platform</div>
+      <div class="port-card-title">OpenAI AI Platform Analytics</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Black/White</span><span class="tech-pill">API Metrics</span><span class="tech-pill">Plotly</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal reveal-delay-2" href="https://palantirfoundry.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">09</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Enterprise / Data Intelligence</div>
+      <div class="port-card-title">Palantir Foundry Analytics App</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">Dark Mode</span><span class="tech-pill">Fulfillment</span><span class="tech-pill">3D Scatter</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card reveal" href="https://subsi-app.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">10</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">E-Commerce / Nigeria</div>
+      <div class="port-card-title">Subsi E-Commerce Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">NGN Dataset</span><span class="tech-pill">Brand Theme</span><span class="tech-pill">Streamlit</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+    <a class="port-card port-card-wide reveal reveal-delay-1" href="https://ubabank.streamlit.app/" target="_blank" rel="noopener noreferrer">
+      <div class="port-card-num">11</div>
+      <div class="port-live-badge">Live App</div>
+      <div class="port-card-industry">Banking / Finance</div>
+      <div class="port-card-title">UBA Banking Operations Dataset Dashboard</div>
+      <div class="port-card-tech"><span class="tech-pill">Python</span><span class="tech-pill">NGN Dataset</span><span class="tech-pill">8 KPI Cards</span><span class="tech-pill">10 Plotly Charts</span><span class="tech-pill">Sidebar Filters</span><span class="tech-pill">Executive Insight Panel</span></div>
+      <div class="port-card-link">View on Streamlit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag reveal">What We Do</div>
+  <h2 class="services-headline reveal reveal-delay-1">Six Ways We<br><em>Elevate</em> Your Data</h2>
+  <div class="services-grid">
+    <div class="service-item reveal"><div class="service-num">01</div><div class="service-title">Business Intelligence Dashboards</div><div class="service-desc">Custom-built, interactive Streamlit and Power BI dashboards with full brand theming, KPI cards, Plotly visualizations (including 3D scatter plots), and executive insight panels — tailored to your industry and data.</div><div class="service-line"></div></div>
+    <div class="service-item reveal reveal-delay-1"><div class="service-num">02</div><div class="service-title">Data Analytics &amp; Reporting</div><div class="service-desc">End-to-end data pipeline development using Python and Pandas, transforming raw datasets into automated, scheduled reports with actionable insights for decision-makers.</div><div class="service-line"></div></div>
+    <div class="service-item reveal"><div class="service-num">03</div><div class="service-title">Dashboard Deployment &amp; DevOps</div><div class="service-desc">Full deployment readiness including GitHub repository structuring, requirements.txt documentation, Streamlit Cloud configuration, and production-grade error handling.</div><div class="service-line"></div></div>
+    <div class="service-item reveal reveal-delay-1"><div class="service-num">04</div><div class="service-title">Prompt Engineering &amp; AI Integration</div><div class="service-desc">Strategic AI prompt design for BI workflows, enabling faster prototyping, intelligent data summaries, and AI-augmented analytics within existing business systems.</div><div class="service-line"></div></div>
+    <div class="service-item reveal"><div class="service-num">05</div><div class="service-title">Brand-Specific BI Theming</div><div class="service-desc">Pixel-perfect color theming, logo integration, and CSS customization to ensure every dashboard reflects your corporate identity with consistency and professionalism.</div><div class="service-line"></div></div>
+    <div class="service-item reveal reveal-delay-1"><div class="service-num">06</div><div class="service-title">BI Consulting &amp; Strategy</div><div class="service-desc">Advisory services for organizations building their analytics stack — from tool selection and architecture planning to team capacity building and data governance frameworks.</div><div class="service-line"></div></div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="tech-section" id="tech">
+  <div class="section-tag reveal">Technology Stack</div>
+  <h2 class="tech-headline reveal reveal-delay-1">Built on a Modern,<br>Open-Source Ecosystem</h2>
+  <div class="tech-cols">
+    <div class="reveal reveal-delay-1">
+      <h4>Languages</h4>
+      <div class="tech-item"><div class="tech-dot"></div>Python</div>
+      <div class="tech-item"><div class="tech-dot"></div>SQL</div>
+      <div class="tech-item"><div class="tech-dot"></div>JavaScript</div>
+      <div class="tech-item"><div class="tech-dot"></div>HTML / CSS</div>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <h4>Frameworks &amp; Libraries</h4>
+      <div class="tech-item"><div class="tech-dot"></div>Streamlit</div>
+      <div class="tech-item"><div class="tech-dot"></div>Plotly</div>
+      <div class="tech-item"><div class="tech-dot"></div>Pandas</div>
+      <div class="tech-item"><div class="tech-dot"></div>NumPy</div>
+      <div class="tech-item"><div class="tech-dot"></div>OpenPyXL</div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <h4>Tools &amp; Platforms</h4>
+      <div class="tech-item"><div class="tech-dot"></div>GitHub</div>
+      <div class="tech-item"><div class="tech-dot"></div>Streamlit Cloud</div>
+      <div class="tech-item"><div class="tech-dot"></div>Power BI</div>
+      <div class="tech-item"><div class="tech-dot"></div>VS Code</div>
+      <div class="tech-item"><div class="tech-dot"></div>Excel / CSV</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="why-layout">
+    <div class="why-left">
+      <div class="section-tag reveal">Why Choose Us</div>
+      <h2 class="reveal reveal-delay-1">Six Reasons<br><em>To Work With Us</em></h2>
+      <p class="reveal reveal-delay-2">We don't just build dashboards. We engineer intelligence systems that transform how organizations see, decide, and grow.</p>
+    </div>
+    <div class="why-list">
+      <div class="why-item reveal"><div class="why-num">01</div><div><div class="why-title">Production-Ready Deliverables</div><div class="why-desc">Every dashboard and report is validated, error-free, and deployment-ready from day one.</div></div></div>
+      <div class="why-item reveal reveal-delay-1"><div class="why-num">02</div><div><div class="why-title">Brand-Faithful Design</div><div class="why-desc">We build to your identity — colors, logos, typography, and tone are meticulously matched.</div></div></div>
+      <div class="why-item reveal reveal-delay-2"><div class="why-num">03</div><div><div class="why-title">End-to-End Ownership</div><div class="why-desc">From prompt engineering and data modeling to deployment documentation, we handle the full lifecycle.</div></div></div>
+      <div class="why-item reveal reveal-delay-3"><div class="why-num">04</div><div><div class="why-title">Rapid Turnaround</div><div class="why-desc">Our structured workflow delivers complex BI applications efficiently without compromising quality.</div></div></div>
+      <div class="why-item reveal"><div class="why-num">05</div><div><div class="why-title">Local Expertise, Global Standards</div><div class="why-desc">Deep understanding of Nigerian market data (NGN, sector nuances) combined with world-class BI engineering practices.</div></div></div>
+      <div class="why-item reveal reveal-delay-1"><div class="why-num">06</div><div><div class="why-title">Iterative Refinement</div><div class="why-desc">We work closely with clients through iterative cycles to ensure the final product exceeds expectations.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries">
+  <div class="section-tag reveal">Industries Served</div>
+  <h2 class="industries-headline reveal reveal-delay-1">Across Every<br><em>Sector That Matters</em></h2>
+  <div class="industries-grid">
+    <div class="industry-pill reveal"><div class="industry-icon">&#128225;</div><div class="industry-name">Telecommunications</div></div>
+    <div class="industry-pill reveal reveal-delay-1"><div class="industry-icon">&#127970;</div><div class="industry-name">Banking &amp; Finance</div></div>
+    <div class="industry-pill reveal reveal-delay-2"><div class="industry-icon">&#128722;</div><div class="industry-name">E-Commerce &amp; Retail</div></div>
+    <div class="industry-pill reveal reveal-delay-3"><div class="industry-icon">&#129302;</div><div class="industry-name">AI &amp; Technology</div></div>
+    <div class="industry-pill reveal"><div class="industry-icon">&#127970;</div><div class="industry-name">Enterprise &amp; Logistics</div></div>
+    <div class="industry-pill reveal reveal-delay-1"><div class="industry-icon">&#9889;</div><div class="industry-name">Oil, Gas &amp; Energy</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg-text">BI</div>
+  <div class="cta-inner">
+    <p class="cta-quote">Data is only as powerful as the story it tells. We make sure yours speaks clearly.</p>
+    <p class="cta-sub">Let's build something exceptional together. Lagos, Nigeria &middot; Global Remote</p>
+    <a href="mailto:toheebadeniyi376@gmail.com" class="btn-dark">Start a Project</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">TOHEEB<span>BI</span></div>
+    <p class="footer-tagline">Transforming Data into Strategic Intelligence. Headquartered in Lagos, Nigeria. Serving clients globally.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Services</h5>
+    <ul>
+      <li><a href="#services">BI Dashboards</a></li>
+      <li><a href="#services">Data Analytics</a></li>
+      <li><a href="#services">Deployment &amp; DevOps</a></li>
+      <li><a href="#services">AI Integration</a></li>
+      <li><a href="#services">BI Consulting</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h5>Live Portfolio</h5>
+    <ul>
+      <li><a href="https://anthropicclaudeai.streamlit.app/" target="_blank" rel="noopener">Anthropic Claude AI</a></li>
+      <li><a href="https://bokkumart.streamlit.app/" target="_blank" rel="noopener">Bokku Mart</a></li>
+      <li><a href="https://metaglobalsocialmediaanalytics.streamlit.app/" target="_blank" rel="noopener">Meta Analytics</a></li>
+      <li><a href="https://microsoft-app.streamlit.app/" target="_blank" rel="noopener">Microsoft</a></li>
+      <li><a href="https://moniepoint-app.streamlit.app/" target="_blank" rel="noopener">Moniepoint</a></li>
+      <li><a href="https://mtnnigeria.streamlit.app/" target="_blank" rel="noopener">MTN Nigeria</a></li>
+      <li><a href="https://oando-app.streamlit.app/" target="_blank" rel="noopener">Oando</a></li>
+      <li><a href="https://openaiaiplatform.streamlit.app/" target="_blank" rel="noopener">OpenAI Platform</a></li>
+      <li><a href="https://palantirfoundry.streamlit.app/" target="_blank" rel="noopener">Palantir Foundry</a></li>
+      <li><a href="https://subsi-app.streamlit.app/" target="_blank" rel="noopener">Subsi</a></li>
+      <li><a href="https://ubabank.streamlit.app/" target="_blank" rel="noopener">UBA Bank</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>&copy; 2026 Toheeb Business Intelligence Software Consulting Firm</span>
+  <span>Lagos, Nigeria &middot; Est. 2026</span>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '0.7rem 4rem' : '1.2rem 4rem';
+  });
+</script>
+</body>
+</html>
