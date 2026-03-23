@@ -96,7 +96,226 @@
   .value-card h4 { font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--navy-mid); font-weight: 600; }
   .value-card p { font-size: 0.9rem; color: #666; margin-top: 0.4rem; line-height: 1.6; }
 
-  /* PORTFOLIO */
+  /* ============================================================
+     INSIGHTS / VIDEO SECTION
+  ============================================================ */
+  .insights-section {
+    background: #060f1d;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle diagonal grid */
+  .insights-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(135deg, rgba(244,163,0,0.03) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(244,163,0,0.03) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(244,163,0,0.03) 25%, transparent 25%),
+      linear-gradient(45deg,  rgba(244,163,0,0.03) 25%, transparent 25%);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* accent glow top-right */
+  .insights-section::after {
+    content: '';
+    position: absolute;
+    top: -15%; right: -8%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(244,163,0,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .insights-inner {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.65fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  /* LEFT — label + headline + meta */
+  .insights-left {}
+
+  .insights-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.6rem, 4.5vw, 4.8rem);
+    line-height: 0.93;
+    letter-spacing: 2px;
+    margin-bottom: 1.6rem;
+  }
+  .insights-headline em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+
+  .insights-desc {
+    font-size: 0.96rem;
+    line-height: 1.78;
+    color: rgba(255,255,255,0.55);
+    max-width: 380px;
+    margin-bottom: 2.2rem;
+  }
+
+  /* episode meta strip */
+  .insights-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.4rem 1.8rem;
+    border: 1px solid rgba(244,163,0,0.18);
+    border-radius: 4px;
+    background: rgba(244,163,0,0.04);
+    max-width: 360px;
+  }
+  .insights-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .insights-meta-label { color: rgba(255,255,255,0.35); }
+  .insights-meta-value { color: var(--gold); font-weight: 600; }
+
+  /* divider line */
+  .insights-meta-divider {
+    height: 1px;
+    background: rgba(244,163,0,0.12);
+    margin: 0.1rem 0;
+  }
+
+  /* RIGHT — video card */
+  .insights-video-card {
+    position: relative;
+  }
+
+  /* outer decorative frame */
+  .video-frame-outer {
+    position: relative;
+    border-radius: 6px;
+    padding: 3px;
+    background: linear-gradient(135deg, rgba(244,163,0,0.55), rgba(244,163,0,0.1) 50%, rgba(27,58,107,0.4));
+    box-shadow:
+      0 0 0 1px rgba(244,163,0,0.08),
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 60px rgba(244,163,0,0.06);
+  }
+
+  /* inner container that clips the video */
+  .video-frame-inner {
+    border-radius: 4px;
+    overflow: hidden;
+    background: #0a1828;
+    position: relative;
+  }
+
+  /* top bar chrome strip */
+  .video-chrome-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    background: #07111e;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .chrome-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .chrome-dot.red   { background: #ff5f57; }
+  .chrome-dot.yellow{ background: #febc2e; }
+  .chrome-dot.green { background: #28c840; }
+  .chrome-title {
+    margin-left: 0.6rem;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+  }
+  .chrome-badge {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.6rem; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--gold); background: rgba(244,163,0,0.1);
+    border: 1px solid rgba(244,163,0,0.3);
+    padding: 0.18rem 0.55rem; border-radius: 20px;
+  }
+  .chrome-badge::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 5px var(--gold);
+  }
+
+  /* video element */
+  .insights-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+    object-fit: cover;
+    background: #05101e;
+  }
+
+  /* bottom caption bar */
+  .video-caption-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.2rem;
+    background: #07111e;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .vcb-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+    max-width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vcb-tag {
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+  }
+
+  /* floating corner accent */
+  .video-corner-accent {
+    position: absolute;
+    bottom: -12px; right: -12px;
+    width: 80px; height: 80px;
+    border-bottom: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    opacity: 0.35;
+    border-radius: 0 0 4px 0;
+    pointer-events: none;
+  }
+  .video-corner-accent-tl {
+    position: absolute;
+    top: -12px; left: -12px;
+    width: 60px; height: 60px;
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+    opacity: 0.2;
+    border-radius: 4px 0 0 0;
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     PORTFOLIO
+  ============================================================ */
   .portfolio { background: var(--navy); padding: 8rem 4rem; }
   .portfolio-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
   .portfolio-headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.95; letter-spacing: 2px; }
@@ -104,7 +323,6 @@
   .portfolio-count { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
   .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 
-  /* PORT CARD — clickable anchor */
   a.port-card {
     position: relative; background: #0f2347; padding: 2.5rem;
     overflow: hidden; transition: background 0.3s;
@@ -116,8 +334,6 @@
   a.port-card:hover { background: #132b56; }
   .port-card-num { position: absolute; top: 1.8rem; right: 2rem; font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; color: rgba(255,255,255,0.03); transition: color 0.3s; }
   a.port-card:hover .port-card-num { color: rgba(244,163,0,0.08); }
-
-  /* live badge */
   .port-live-badge {
     position: absolute; top: 1.6rem; left: 2.5rem;
     display: inline-flex; align-items: center; gap: 0.45rem;
@@ -129,22 +345,15 @@
   .port-live-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #555; transition: background 0.3s, box-shadow 0.3s; flex-shrink: 0; }
   a.port-card:hover .port-live-badge { color: var(--gold); background: rgba(244,163,0,0.08); border-color: rgba(244,163,0,0.4); }
   a.port-card:hover .port-live-badge::before { background: #44dd77; box-shadow: 0 0 6px #44dd77; }
-
   .port-card-industry { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
   .port-card-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; line-height: 1.25; color: var(--white); margin-bottom: 0.8rem; }
   .port-card-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
   .tech-pill { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 0.2rem 0.6rem; border-radius: 20px; transition: all 0.2s; }
   a.port-card:hover .tech-pill { background: rgba(244,163,0,0.1); border-color: rgba(244,163,0,0.3); color: var(--gold); }
-
-  .port-card-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
-    color: rgba(255,255,255,0.3); transition: color 0.2s;
-  }
+  .port-card-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.3); transition: color 0.2s; }
   a.port-card:hover .port-card-link { color: var(--gold); }
   .port-card-link svg { width: 11px; height: 11px; transition: transform 0.2s; }
   a.port-card:hover .port-card-link svg { transform: translate(2px,-2px); }
-
   .port-card-wide { grid-column: span 2; }
 
   /* SERVICES */
@@ -233,6 +442,9 @@
     .hero { padding: 8rem 1.5rem 4rem; }
     .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
     .about { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 3rem; }
+    .insights-section { padding: 5rem 1.5rem; }
+    .insights-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .insights-meta { max-width: 100%; }
     .portfolio { padding: 5rem 1.5rem; }
     .portfolio-grid { grid-template-columns: 1fr; }
     .port-card-wide { grid-column: span 1; }
@@ -260,9 +472,11 @@
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#tech">Tech Stack</a></li>
+    <li><a href="#insights">Insights</a></li>
     <li><a href="#industries">Industries</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get In Touch</a>
+</ul>
 </nav>
 
 <!-- HERO -->
@@ -316,7 +530,7 @@
   <div>
     <div class="section-tag reveal">About The Firm</div>
     <h2 class="about-headline reveal reveal-delay-1">Where Data Meets<br><em>Strategic Clarity</em></h2>
-    <p class="about-body reveal reveal-delay-2">We are a premier data and analytics consultancy headquartered in Ibadan, Nigeria. Founded on the belief that every business decision should be powered by data, we specialize in designing, building, and deploying end-to-end BI solutions that drive measurable outcomes.</p>
+    <p class="about-body reveal reveal-delay-2">We are a premier data and analytics consultancy headquartered in Lagos, Nigeria. Founded on the belief that every business decision should be powered by data, we specialize in designing, building, and deploying end-to-end BI solutions that drive measurable outcomes.</p>
     <p class="about-body reveal reveal-delay-3">We bridge the gap between raw data and executive insight — delivering interactive dashboards, automated reporting systems, and advanced analytics platforms that help organizations across Africa and beyond compete confidently in a data-driven world.</p>
   </div>
   <div class="about-right">
@@ -324,6 +538,84 @@
     <div class="value-card reveal reveal-delay-2"><h4>Insight-Driven</h4><p>We transform data complexity into clear, executive-level narratives.</p></div>
     <div class="value-card reveal reveal-delay-3"><h4>Client-Centricity</h4><p>We align every solution to the unique goals, brand, and context of each client.</p></div>
     <div class="value-card reveal reveal-delay-4"><h4>Innovation</h4><p>We leverage cutting-edge tools and methodologies to stay ahead of the analytical curve.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSIGHTS / VIDEO SECTION
+============================================================ -->
+<section class="insights-section" id="insights">
+  <div class="insights-inner">
+
+    <!-- LEFT: Label + Headline + Meta -->
+    <div class="insights-left">
+      <div class="section-tag reveal">BI Insights</div>
+      <h2 class="insights-headline reveal reveal-delay-1">
+        The Hidden Cost<br>of Neglecting<br><em>Internal Dashboards</em>
+      </h2>
+      <p class="insights-desc reveal reveal-delay-2">
+        Most organizations invest in customer-facing data products but overlook the operational cost of poorly maintained internal dashboards. This insight piece breaks down the real impact — and what to do about it.
+      </p>
+      <div class="insights-meta reveal reveal-delay-3">
+        <div class="insights-meta-row">
+          <span class="insights-meta-label">Category</span>
+          <span class="insights-meta-value">Business Intelligence Strategy</span>
+        </div>
+        <div class="insights-meta-divider"></div>
+        <div class="insights-meta-row">
+          <span class="insights-meta-label">Topic</span>
+          <span class="insights-meta-value">Dashboard ROI &amp; Governance</span>
+        </div>
+        <div class="insights-meta-divider"></div>
+        <div class="insights-meta-row">
+          <span class="insights-meta-label">Presented by</span>
+          <span class="insights-meta-value">ToheebBI Consulting</span>
+        </div>
+        <div class="insights-meta-divider"></div>
+        <div class="insights-meta-row">
+          <span class="insights-meta-label">Format</span>
+          <span class="insights-meta-value">Video Feature</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Video Card -->
+    <div class="insights-video-card reveal reveal-delay-2">
+      <div class="video-corner-accent-tl"></div>
+      <div class="video-frame-outer">
+        <div class="video-frame-inner">
+
+          <!-- Chrome bar -->
+          <div class="video-chrome-bar">
+            <span class="chrome-dot red"></span>
+            <span class="chrome-dot yellow"></span>
+            <span class="chrome-dot green"></span>
+            <span class="chrome-title">ToheebBI — Insight Feature</span>
+            <span class="chrome-badge">Featured</span>
+          </div>
+
+          <!-- The Video -->
+          <video
+            class="insights-video"
+            controls
+            preload="metadata"
+            poster=""
+          >
+            <source src="The_Hidden_Cost_of_Neglecting_Internal_Dashboards.mp4" type="video/mp4" />
+            Your browser does not support the HTML5 video element.
+          </video>
+
+          <!-- Caption bar -->
+          <div class="video-caption-bar">
+            <span class="vcb-title">The Hidden Cost of Neglecting Internal Dashboards</span>
+            <span class="vcb-tag">ToheebBI</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="video-corner-accent"></div>
+    </div>
+
   </div>
 </section>
 
